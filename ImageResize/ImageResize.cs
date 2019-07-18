@@ -15,7 +15,7 @@ namespace serverlesslibrary
         private static readonly Size size = new Size(EnvAsInt("ImageResize-Width"), EnvAsInt("ImageResize-Height"));
 
         [FunctionName("ImageResize")]
-        public static void Run([BlobTrigger("images/{name}", Connection = "ImageRepository")] Stream original, [Blob("thumbnails/{name}", FileAccess.Write)] Stream resized)
+        public static void Run([BlobTrigger("usermedia/{name}", Connection = "ImageRepository")] Stream original, [Blob("thumbnails/{name}", FileAccess.Write)] Stream resized)
         {
             using (var image = sharp.Image.Load(original))
             {
