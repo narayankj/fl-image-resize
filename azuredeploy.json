@@ -33,7 +33,7 @@
         "functionAppName": "[parameters('appName')]",
         "hostingPlanName": "[concat(parameters('appName'), '-plan')]",
         "applicationInsightsName": "[parameters('appName')]",
-        "repoURL": "https://github.com/narayankj/fl-image-resize.git",
+        "repoURL": "https://github.com/jefking/fl-image-resize.git",
         "branch": "master",
         "storageAccountName": "[concat('storage', uniquestring(resourceGroup().id))]",
         "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
