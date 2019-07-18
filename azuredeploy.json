@@ -11,7 +11,7 @@
         "height":
         {
             "type": "int",
-            "defaultValue": 100,
+            "defaultValue": 80,
             "minValue": 1,
             "maxValue": 7680,
             "metadata": {
@@ -21,7 +21,7 @@
         "width":
         {
             "type": "int",
-            "defaultValue": 100,
+            "defaultValue": 140,
             "minValue": 1,
             "maxValue": 7680,
             "metadata": {
