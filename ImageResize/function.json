@@ -5,7 +5,7 @@
       "type": "blobTrigger",
       "direction": "in",
       "path": "usermedia/{name}",
-      "connection": "pmlcmedia"
+      "connection": "ImageRepository"
     }
   ],
   "disabled": false
