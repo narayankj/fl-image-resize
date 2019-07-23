@@ -2,7 +2,7 @@
     "$schema": "http://schemas.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "appName": {
+        "pmlcthumbnailfn": {
             "type": "string",
             "metadata": {
                 "description": "The name of the function app that you wish to create."
@@ -30,47 +30,15 @@
         }
     },
     "variables": {
-        "functionAppName": "[parameters('appName')]",
-        "hostingPlanName": "[concat(parameters('appName'), '-plan')]",
-        "applicationInsightsName": "[parameters('appName')]",
-        "repoURL": "https://github.com/jefking/fl-image-resize.git",
+        "functionAppName": "[parameters('pmlcthumbnailfn')]",
+        "hostingPlanName": "[concat(parameters('pmlcthumbnailfn'), '-plan')]",
+        "applicationInsightsName": "[parameters('pmlcthumbnailfn')]",
+        "repoURL": "https://github.com/narayankj/fl-image-resize.git",
         "branch": "master",
-        "storageAccountName": "[concat('storage', uniquestring(resourceGroup().id))]",
+        "storageAccountName": "pmlcmedia",
         "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
     },
     "resources": [
-        {
-            "type": "Microsoft.Storage/storageAccounts",
-            "name": "[variables('storageAccountName')]",
-            "apiVersion": "2018-07-01",
-            "kind": "StorageV2",
-            "location": "[resourceGroup().location]",
-            "sku": {
-                "name": "Standard_LRS",
-                "tier": "Standard"
-            },
-            "properties": {
-                "accessTier": "Hot"
-            },
-            "resources": [
-                {
-                    "type": "blobServices/containers",
-                    "name": "default/thumbnails",
-                    "apiVersion": "2018-07-01",
-                    "dependsOn": [
-                        "[variables('storageAccountName')]"
-                    ]
-                },
-                {
-                    "type": "blobServices/containers",
-                    "name": "default/usermedia",
-                    "apiVersion": "2018-07-01",
-                    "dependsOn": [
-                        "[variables('storageAccountName')]"
-                    ]
-                }
-            ]
-        },
         {
             "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2015-04-01",
@@ -98,15 +66,15 @@
                     "appSettings": [
                         {
                             "name": "AzureWebJobsDashboard",
-                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+                            "value": "[concat('DefaultEndpointsProtocol=http;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
                         },
                         {
                             "name": "AzureWebJobsStorage",
-                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+                            "value": "[concat('DefaultEndpointsProtocol=http;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
                         },
                         {
                             "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+                            "value": "[concat('DefaultEndpointsProtocol=http;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
                         },
                         {
                             "name": "WEBSITE_CONTENTSHARE",
@@ -126,7 +94,7 @@
                         },
                         {
                             "name":"ImageRepository",
-                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+                            "value": "[concat('DefaultEndpointsProtocol=http;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
                         },
                         {
                           "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
